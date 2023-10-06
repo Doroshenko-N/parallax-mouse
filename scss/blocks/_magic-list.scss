@@ -1,0 +1,86 @@
+.magic-list {
+    font-size: calc($index * 2.75);
+    padding: calc($index * 2.75);
+
+    &__item {
+        display: block;
+        line-height: 0.9;
+        padding: calc($index * 3) calc($index * 7.5);
+        border-bottom: 1px solid rgb(0 0 0 / 0.6);
+        color: $black;
+        counter-increment: my-counter;
+        cursor: none;
+
+        &:first-child {
+            border-top: 1.5px solid $black;
+        }
+
+        &::before {
+            position: absolute;
+            content: "(0" counter(my-counter) ")";
+            font-size: calc($index * 0.95);
+            margin-left: calc($index * -2.25);
+            margin-top: calc($index / 2);
+            letter-spacing: 2px;
+            transition: transform $transition;
+            transition-delay: 0.05s;
+            will-change: transform;
+        }
+    }
+
+    &__header {
+        width: min-content;
+        transition: transform $transition;
+        will-change: transform;
+        -webkit-transition: transform $transition;
+        -moz-transition: transform $transition;
+        -ms-transition: transform $transition;
+        -o-transition: transform $transition;
+    }
+
+    &__item:hover &__header,
+    &__item:hover::before {
+        transform: translate3d(calc($index * -5), 0, 0);
+    }
+}
+
+.cursor {
+    position: fixed;
+    width: $width;
+    height: 0;
+    top: calc($height * -0.5);
+    left: calc($width * -0.5);
+    overflow: hidden;
+    transform: translate3d(var(--move-x), var(--move-y), 0);
+    transition:
+        transform $transition-cursor,
+        height 1s ease;
+    z-index: -1;
+    will-change: transform;
+
+    &__img {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        top: calc($height * -0.4);
+        left: calc($width * -0.25);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transform: $cursor-transform scale(1.5);
+        transition: transform $transition-cursor;
+        will-change: transform;
+    }
+}
+
+.magic-list__item:hover .cursor {
+    height: $height;
+}
+
+.magic-list__item:hover .cursor__image {
+    transform: $cursor-transform scale(1);
+    -webkit-transform: $cursor-transform scale(1);
+    -moz-transform: $cursor-transform scale(1);
+    -ms-transform: $cursor-transform scale(1);
+    -o-transform: $cursor-transform scale(1);
+}
